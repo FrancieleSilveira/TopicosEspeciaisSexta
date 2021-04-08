@@ -6,7 +6,8 @@ let largura = Math.floor(Math.random() * 100);
 let area = altura * largura;
 
 console.log(altura, largura, area);
-console.log("Área: " + area + " m2");
+console.log("Área: " + area + " m2"); // Concatenação
 
-// Interpolação - Template Literals
-console.log(`Área: ${area} m2`, area)
+                                // Mais usado
+console.log(`Área: ${area} m2`) // Interpolação - Template Literals (termo usado no JS)
+                                // Interpolação usa ``
