@@ -1,0 +1,36 @@
+
+###
+GET http://localhost:3000/ciclo/listar/
+
+
+###
+GET http://localhost:3000/ciclo/listar/123/ead
+
+
+###
+POST http://localhost:3000/ciclo/cadastrar
+Content-Type: application/json
+
+{
+    "data" : "2021-04-16" ,  //ano-mes-dia
+    "creditos" : [
+        {
+            "nome" : "Salário",
+            "valor" : 5000
+        },{
+            "nome" : "Investimento",
+            "valor" : 50
+        }
+    ],
+    "debitos" : [
+        {
+            "nome" : "Salário",
+            "valor" : 5000,
+            "status" : "PAGO"
+        },{
+            "nome" : "Investimento",
+            "valor" : 50,
+            "status" : "AGENDADO"
+        }
+    ]
+}
