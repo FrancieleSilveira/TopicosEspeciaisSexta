@@ -2,42 +2,34 @@ import { Request, Response } from "express";
 import CicloSchema from "../models/CicloSchema";
 
 class CicloController{
-    listar(request: Request, response: Response) {
-        const objeto = {
-            atribTexto : "Uma string qualquer",
-            atribNumero : 123.54,
-            atribLogico : false,
-            atribObjeto : {
-                atribVetor : ["Opção1", "Opção2"],
-                atributo: {
-                    atribVetor : ["Opção1", "Opção2"],
-                    atributo: "123123",
-                },
-            },
-        };
-         response.json(objeto);
+    async listar(request: Request, response: Response) {
+        const ciclos = await CicloSchema.find();
+         response.status(200).json(ciclos);
     }
 
-    buscarOrId(request: Request, response: Response) {
-        const { param1, param2 } = request.params;
-        const objeto = {
-            param1,
-            param2,
-            atribTexto : "Uma string qualquer",
-            atribNumero : 123.54,
-            atribLogico : false,
-            atribObjeto : {
-                atribVetor : ["Opção1", "Opção2"]
+    async buscarPorId(request: Request, response: Response) {
+        const { id } = request.params;
+        // const ciclo = await CicloSchema.findById(id);
+        // const ciclo = await CicloSchema.find({ _id : id});
+        try {
+            const ciclo = await CicloSchema.findOne({ _id : id});
+            if(ciclo === null) {
+                response.status(404).json({ msg: "Ociclo não existe!"});
             }
-        };
-        response.json(objeto);
+            response.status(200).json(ciclo);
+        } catch (error) {
+            response.status(400).json(error);
+        }
+        
     }
 
-    cadastrar(request: Request, response: Response) {
-        const objeto = request.body; 
-        CicloSchema.create(objeto);
-        console.log(objeto);
-        response.json(objeto);
+    async cadastrar(request: Request, response: Response) {
+        try {
+            const novoCiclo = await CicloSchema.create(request.body);
+            response.status(201).json(novoCiclo);
+        }catch (error) {
+            response.status(400).json(error);
+        }
     }
 }
 
