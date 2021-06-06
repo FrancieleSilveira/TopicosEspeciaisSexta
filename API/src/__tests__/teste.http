@@ -41,6 +41,7 @@ POST http://localhost:3000/ciclo/cadastrar
 Content-Type: application/json
 
 {
+    "data" : "2021/04/12",
     "creditos" : [
         {
             "nome" : "Salário",

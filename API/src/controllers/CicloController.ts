@@ -28,9 +28,14 @@ class CicloController{
             const novoCiclo = await CicloSchema.create(request.body);
             response.status(201).json(novoCiclo);
         }catch (error) {
-            response.status(400).json(error);
+            response.status(400).json({
+                objeto: error,
+                msg: "Falha na validação",
+                erro: true
+            });
         }
     }
 }
+
 
 export { CicloController }

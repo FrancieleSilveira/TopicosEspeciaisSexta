@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ciclo } from 'src/app/models/Ciclos';
-import { HttpClient } from "@angular/common/http";
+import { CicloService } from 'src/app/services/ciclo.service';
 
 @Component({
   selector: 'app-listar',
@@ -11,18 +11,12 @@ export class ListarComponent implements OnInit {
 
   ciclos: Ciclo[] = [];
 
-  constructor(private http: HttpClient) {
-    //Observable<Cicle[]>
-    http.get<Ciclo[]>("http://localhost:3000/ciclo/listar")
-      .subscribe((lista) => {
-        this.ciclos = lista;
-        console.log(this.ciclos); 
-      });
-  }
+  constructor(private service: CicloService) {}
 
   ngOnInit(): void {
-    //Carregar todos os ciclos de pagamento que estão na API
-    //console.log("Testando o evento de carregamento do componente!");
+    this.service.listar().subscribe((ciclos) => {
+        this.ciclos = ciclos;
+      });
   }
 
 }
